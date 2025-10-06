@@ -42,9 +42,11 @@ def filter_so_nguyen():
 
 def filter_so_nguyen_1():
     input_lst= list(map(int, input("Nhap vao day so nguyen").split(',')))
-    check_so_nguyen = lambda x: x % 2 ==0 
-    verify = [check_so_nguyen(x) for x in input_lst]
-    return verify
+    check_so_nguyen = lambda x: x % 2 == 0 
+    filter_list = list(filter(check_so_nguyen, input_lst))
+    print(f"Danh sach so chan: {filter_list}")  # Thêm dòng này để debug
+    return filter_list
+
 
 
 # def main():
