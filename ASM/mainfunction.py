@@ -43,12 +43,46 @@ def nhap_ds_nv():
 
 
 
-def luu_file():
-    pass
+def tao_file():
+    try:
+        with open("nhanvien.txt", "w", encoding="utf-8") as file:
+            pass
+        print("Đã tạo file nhanvien.txt")
+    except Exception as e:
+        print(f"Lỗi khi tạo file: {e}")
+
+def wirte_file():
+    try:
+        with open("nhanvien.txt", "w", encoding="utf-8") as file:
+            for loai, danh_sach in ds_nhanvien.items():
+                file.write(f"\n=== LOẠI NHÂN VIÊN: {loai} ===\n")
+                for nv in danh_sach:
+                    file.write(nv.xuat_thong_tin())
+                    file.write("\n" + "-"*30 + "\n")
+            print("Đã lưu file thành công!")
+            return True
+    except Exception as e:
+        print(f"Lỗi khi lưu file: {e}")
+        return False
 
 
 def doc_tu_file():
-    pass
+    try:
+        with open("nhanvien.txt", "r", encoding="utf-8") as file:
+            content = file.read()
+            if content.strip():
+                print(content)
+            else:
+                print("File trống!")
+            return True
+    except FileNotFoundError:
+        print("Không tìm thấy file nhanvien.txt")
+        return False
+    except Exception as e:
+        print(f"Lỗi khi đọc file: {e}")
+        return False
+
+
 
 def xuat_ds(ds_nhanvien):
     print("="* 14 ,"Danh sach nhan vien", "="*15)
@@ -198,3 +232,27 @@ def xuat_5_nv_thu_nhap_cao_nhat():
             check.append(nhan_vien)
     sort_lst= sorted(check, key=lambda nv:nv.tinh_thu_nhap() , reverse= True)
     return sort_lst[:5]
+
+
+def xuat_5_nhan_vien_theo_bo_phan():
+    pass
+
+def test_write_read_file():
+    """Test function để kiểm tra việc ghi và đọc file"""
+    print("=== TEST GHI VÀ ĐỌC FILE ===")
+    
+    # Thêm một nhân viên test
+    test_nv = Nhan_Vien("TEST001", "Nguyễn Văn Test", 5000000)
+    ds_nhanvien["Hành chính"].append(test_nv)
+    
+    # Ghi file
+    print("Đang ghi file...")
+    wirte_file()
+    
+    # Đọc file
+    print("\nĐang đọc file...")
+    doc_tu_file()
+    
+    # Xóa nhân viên test
+    ds_nhanvien["Hành chính"].remove(test_nv)
+    print("\nĐã xóa nhân viên test khỏi danh sách")

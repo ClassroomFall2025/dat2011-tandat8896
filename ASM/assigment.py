@@ -8,7 +8,7 @@ menu_list = {
     4: "Xóa nhân viên theo mã",
     5: "Cập nhật thông tin nhân viên theo mã",
     6: "Sắp xếp danh sách nhân viên",
-    7: "Xuất 5 nhân viên có thu nhập cao nhất"  
+    7: "Xuất 5 nhân viên có thu nhập cao nhất"
 }
 def menu():
     print("="*24+"MENU CHƯƠNG TRÌNH"+"="*23)
@@ -29,7 +29,9 @@ def menu():
                 break
             case 1:
                 nhap_ds_nv()
-                luu_file()
+                tao_file()
+                wirte_file()
+                doc_tu_file()
             case 2:
                 #doc_tu_file()
                 xuat_ds(ds_nhanvien)
@@ -41,7 +43,7 @@ def menu():
                 else:
                     print(f"Tìm thấy {len(ds_timkiem)} nhân viên phù hợp")
                     for nv in ds_timkiem:
-                        nv.xuat_thong_tin()
+                        print(nv.xuat_thong_tin())
             case 4:
                 xoa_nv_theo_ma()
                 
@@ -53,7 +55,24 @@ def menu():
             case 7:
                 result= xuat_5_nv_thu_nhap_cao_nhat()
                 for i in result:
-                    i.xuat_thong_tin()
+                    print(i.xuat_thong_tin())
+                while True:
+                    
+                    menu_1 = {1: "xuat 5 nhan vien cao nhat"}
+                    for key, value in menu_1.items():
+                        print(f"{key}: {value}")
+                    try:
+                        choice= int(input("Nhap vao lua chon:"))
+                    except:
+                        raise ValueError("vui long nhap lua chon")
+                    if choice==0:
+                        break
+                    elif choice ==1:
+                        xuat_5_nhan_vien_theo_bo_phan()
+                        
+                    else:
+                        print("lua chon khong hop le")
+                
             case _:
                 print("Lựa chọn không hợp lệ.")
 

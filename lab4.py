@@ -34,7 +34,7 @@ def filter_so_nguyen():
     my_list_so_nguyen_to = []
     input_lst= list(map(int, input("Nhap vao day so nguyen").split(',')))
     for i in range(len(input_lst)):
-        if input_lst[i] % 2== 0:
+        if input_lst[i] % 2== 1:
             print(f"so nguyen to {input_lst[i]}")
             my_list_so_nguyen_to.append(input_lst[i])
     return my_list_so_nguyen_to
@@ -153,7 +153,7 @@ def may_tinh():
     while True:
         print("\n MENU:")
         print("1  Phép tính 2 số: + - x ÷ ^")
-        print("2  Phép tính 1 số: √ sin cos tan log")
+        print("2  Phép tính 1 số: sqrt sin cos tan log")
         print("3  Giải phương trình")
         print("4  Xem lịch sử")
         print("5  Xem thời gian")
@@ -272,6 +272,10 @@ def may_tinh():
 
 def now():
     return datetime.datetime.now()
+
+
+def main():
+    may_tinh()
 
 
 
