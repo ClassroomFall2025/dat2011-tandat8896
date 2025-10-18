@@ -8,76 +8,59 @@ menu_list = {
     4: "Xóa nhân viên theo mã",
     5: "Cập nhật thông tin nhân viên theo mã",
     6: "Sắp xếp danh sách nhân viên",
-    7: "Xuất 5 nhân viên có thu nhập cao nhất"
+    7: "Xuất 5 nhân viên có thu nhập cao nhất",
+    8: "Xuất nhân viên theo phòng ban"  
 }
+
 def menu():
-    print("="*24+"MENU CHƯƠNG TRÌNH"+"="*23)
-    for key, value in menu_list.items():
-        print(f"| {key} : {value} {(55 - len(value)) * ' '} |")
-    print("="*64)
-
-
     while True:
+        print("="*24+"MENU CHƯƠNG TRÌNH"+"="*23)
+        for key, value in menu_list.items():
+            print(f"| {key} : {value} {(55 - len(value)) * ' '} |")
+        print("="*64)  
+              
         while True:
             try:
-                lua_chon = int(input("Nhập lựa chọn của bạn từ 0 - 7: "))
+                lua_chon = int(input("Nhập lựa chọn của bạn từ 0 - 8: "))
                 break
             except ValueError:
                 print("Lựa chọn không hợp lệ,vui lòng nhập lại lựa chọn")
+                
         match lua_chon:
             case 0:
+                print("Cảm ơn đã sử dụng chương trình!")
                 break
             case 1:
                 nhap_ds_nv()
-                tao_file()
-                wirte_file()
-                doc_tu_file()
+                ghi_file()
             case 2:
-                #doc_tu_file()
-                xuat_ds(ds_nhanvien)
+                xuat_ds(ds_nhanvien)   
             case 3:
                 ds_timkiem=tim_kiem_nhan_vien()
-                # print(ds_timkiem[0])
-                if len(ds_timkiem) == 0:
-                    print("Không tìm thấy nhân viên phù hợp")
-                else:
-                    print(f"Tìm thấy {len(ds_timkiem)} nhân viên phù hợp")
-                    for nv in ds_timkiem:
-                        print(nv.xuat_thong_tin())
+                if not (ds_timkiem["Hành chính"]==[] and ds_timkiem["Tiếp thị"]==[] and ds_timkiem["Trưởng phòng"]==[]):
+                    if ds_timkiem["Hành chính"] != []:
+                        xuat_ds_theo_loai("Hành chính",ds_timkiem["Hành chính"])
+                    if ds_timkiem["Tiếp thị"] != []:
+                        xuat_ds_theo_loai("Tiếp thị",ds_timkiem["Tiếp thị"])
+                    if ds_timkiem["Trưởng phòng"] != []:
+                        xuat_ds_theo_loai("Trưởng phòng",ds_timkiem["Trưởng phòng"])
             case 4:
                 xoa_nv_theo_ma()
-                
+                ghi_file()    
             case 5:
-                cap_nhat_tt_theo_ma(ds_nhanvien)
-                
+                cap_nhat_tt_theo_ma(ds_nhanvien)  
             case 6:
-                sap_xep_nv_()
+                xuat_ds(sap_xep_nv())    
             case 7:
-                result= xuat_5_nv_thu_nhap_cao_nhat()
-                for i in result:
-                    print(i.xuat_thong_tin())
-                while True:
-                    
-                    menu_1 = {1: "xuat 5 nhan vien cao nhat"}
-                    for key, value in menu_1.items():
-                        print(f"{key}: {value}")
-                    try:
-                        choice= int(input("Nhap vao lua chon:"))
-                    except:
-                        raise ValueError("vui long nhap lua chon")
-                    if choice==0:
-                        break
-                    elif choice ==1:
-                        xuat_5_nhan_vien_theo_bo_phan()
-                        
-                    else:
-                        print("lua chon khong hop le")
+                result = xuat_5_nv_thu_nhap_cao_nhat()
                 
+                for i in result:
+                    print("="*60+"")
+                    print(f"| {'Mã NV':^10} | {'Tên NV':^20} | {'Lương':^20} |" )
+                    print(i.xuat_thong_tin_co_ban())
+            case 8:
+                xuat_ds_theo_phong_ban(ds_nhanvien)
             case _:
                 print("Lựa chọn không hợp lệ.")
 
-def main():
-    menu()
-
-if __name__ == "__main__":
-    main()
+menu()
